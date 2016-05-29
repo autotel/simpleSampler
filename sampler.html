@@ -1,0 +1,50 @@
+<!doctype html>
+   	<html>
+	<head>
+		<title>Sampler</title>
+		<script type="text/javascript" src="js/nexusUI.js"></script>
+		<script type="text/javascript" src="js/Tone.js"></script>
+		<script>
+      var delay= new Tone.FeedbackDelay("16n",0.5).toMaster();
+			var sampler = new Tone.Player("noisecollector__hit4.wav",function(){
+        console.log("samples loaded");
+      })
+      sampler.retrigger=true;
+      sampler.connect(delay);
+				// sampler.play('0')
+
+			// }
+
+			nx.onload = function() {
+      //
+			    button1.on('*',function(data) {
+            if(data.press==1){
+              console.log(data);
+              sampler.start();
+            }
+            // sampler.stop('+0.7');
+			    })
+          dial1.on('*',function(data) {
+            delay.delayTime.value=data.value;
+			    })
+          dial2.on('*',function(data) {
+            delay.feedback.value=data.value;
+			    })
+          dial3.on('*',function(data) {
+            sampler.playbackRate=data.value;
+			    })
+
+			}
+		</script>
+
+	</head>
+
+	<body style="background-color:#ddd">
+
+		<canvas nx="button"></canvas>
+    <canvas nx="dial"></canvas>
+    <canvas nx="dial"></canvas>
+    <canvas nx="dial"></canvas>
+	</body>
+
+</html>
